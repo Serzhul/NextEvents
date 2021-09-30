@@ -1,10 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { getFeaturedEvents } from "../dummy-data";
+import { getFeaturedEvents } from "../components/helpers/api";
 import EventList from "../components/events/EventList";
 
-export default function HomePage() {
-  const featuredEvents = getFeaturedEvents();
+export default function HomePage({ featuredEvents }) {
   return (
     <div>
       <ul>
@@ -14,4 +13,14 @@ export default function HomePage() {
       </ul>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const featuredEvents = await getFeaturedEvents();
+
+  return {
+    props: {
+      featuredEvents,
+    },
+  };
 }
