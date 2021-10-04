@@ -1,9 +1,14 @@
+import Head from "next/head";
+
 import Layout from "../components/layout/layout";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Layout>
+      <Head>
+        <meta name="viewport" content="initil-sacle=1.0, width=deivce-width" />
+      </Head>
       <Component {...pageProps} />
     </Layout>
   );

@@ -1,5 +1,10 @@
+import Head from "next/head";
 import React, { Fragment } from "react";
-import { getAllEvents, getEventById } from "../../components/helpers/api";
+import {
+  getAllEvents,
+  getEventById,
+  getFeaturedEvents,
+} from "../../components/helpers/api";
 import EventContent from "../../components/event-detail/event-content";
 import EventSummary from "../../components/event-detail/event-summary";
 import EventLogistics from "../../components/event-detail/event-logistics";
@@ -10,15 +15,19 @@ export default function EventDetailPage({ selectedEvent }) {
 
   if (!event) {
     return (
-      <ErrorAlert>
-        <p>No event found!</p>
-      </ErrorAlert>
+      <div className="center">
+        <p>Loadig...</p>
+      </div>
     );
   }
 
   return (
     <div>
       <Fragment>
+        <Head>
+          <title>NextJS Events</title>
+          <meta name="description" content="Find a lot of great events" />
+        </Head>
         <EventSummary title={event.title}></EventSummary>
         <EventLogistics
           date={event.date}
@@ -41,11 +50,12 @@ export async function getStaticProps(context) {
     props: {
       selectedEvent: event,
     },
+    revalidate: 30,
   };
 }
 
 export async function getStaticPaths() {
-  const events = await getAllEvents();
+  const events = await getFeaturedEvents();
 
   const paths = events.map((event) => ({
     params: {
@@ -55,6 +65,6 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 }
