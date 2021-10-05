@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { getFeaturedEvents } from "../components/helpers/api";
 import EventList from "../components/events/EventList";
+import NewsLetterRegistration from "../components/input/newsletter-registration";
 
 export default function HomePage({ featuredEvents }) {
   return (
@@ -11,6 +12,7 @@ export default function HomePage({ featuredEvents }) {
         <title>NextJS Events</title>
         <meta name="description" content="Find a lot of great events" />
       </Head>
+      <NewsLetterRegistration />
       <ul>
         <li>
           <EventList items={featuredEvents} />
